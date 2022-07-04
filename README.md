@@ -1,1 +1,1 @@
-# The-Journel
+# The-Journal
