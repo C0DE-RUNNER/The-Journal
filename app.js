@@ -1,12 +1,16 @@
 const path = require('path');
+const { engine } = require('express-handlebars');
 const express = require('express');
 const dotenv = require('dotenv');
 const morgan = require('morgan');
-const { engine } = require('express-handlebars');
 const passport = require('passport');
 const session = require('express-session')
 
 const connectDB = require('./config/db');
+
+const app = express();
+
+
 // Load config
 dotenv.config({path: './config/config.env'});
 
@@ -16,7 +20,6 @@ require('./config/passport')(passport)
 
 connectDB()
 
-const app = express();
 
 if(process.env.NODE_ENV ==='development'){
     app.use(morgan('dev'))
@@ -53,6 +56,7 @@ app.use(express.static(path.join(__dirname, 'public')))
 
   // routes
 app.use('/', require('./routes/index'))
+app.use('/', require('./routes/auth'))
 
 const PORT = process.env.PORT || 3000;
 
